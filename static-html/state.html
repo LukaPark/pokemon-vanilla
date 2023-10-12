@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script>
+		const $app = document.querySelector("#app");
+
+		let state = {
+			items: ["item1", "item2", "item3", "item4"],
+		};
+
+		const render = () => {
+			const { items } = state;
+
+			$app.innerHTML = `
+                <ul>
+                    ${items.map(item => `<li>${item}</li>`).join("")}
+                </ul>
+                <button id="append">추가</button>
+            `;
+
+			document.querySelector("#append").addEventListener("click", () => {
+				setState({ items: [...items, `item${items.length + 1}`] });
+			});
+		};
+
+		const setState = newState => {
+			state = { ...state, ...newState };
+			render();
+		};
+
+		render();
+		// state가 변경되면 render 함수를 호출한다.
+		// state 는 setState를 통해서만 변경할 수 있다.
+	</script>
+</html>
